@@ -3,8 +3,8 @@
 uint8_t mac[6] = {0x00,0x01,0x02,0x03,0x04,0x05};
 EthernetClient client;
 
-int sensor1 = 5;
-int sensor2 = 10;
+int sensor1 = 8;
+int sensor2 = 9;
 String data;
 
 int limiteInf = 500, limiteSup = 1500;
@@ -44,7 +44,7 @@ void loop(){
     }
 
 
-	String data = "sensor1=" + String(sensor1) + "&sensor2=" + String(sensor2) + "&pessoas=" + String(nPessoas);        
+	String data = "valor=" + String(nPessoas);        
 
 	if (client.connect("192.168.0.101",80)) {
     	Serial.println("-> Conectado");
