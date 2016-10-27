@@ -12,6 +12,8 @@ unsigned long timeS1 = 0, timeS2 = 0;
 unsigned long dif;
 long int nPessoas = 0;
 
+long int nAnterior = 0;
+
 void setup() { 
 
 	pinMode(sensor1, INPUT);
@@ -40,17 +42,23 @@ void loop(){
 
     if (dif >= limiteInf and dif <= limiteSup){
     	timeS1 = timeS2 = 0;
+    	nAnterior = nPessoas;
     	nPessoas++;
     }
 
 
 	String data = "valor=" + String(nPessoas);        
 
-	if (client.connect("192.168.0.101",80)) {
-    	Serial.println("-> Conectado");
-		client.print("GET /sensor/add.php?"+String(data));
-    	client.println(); 
-        client.stop();
+	if (nPessoas % 5 == 0 && nAnterior != nPessoas)
+	{
+		if (client.connect("192.168.0.101",80)) 
+		{
+	    	Serial.println("-> Conectado");
+			client.print("GET /sensor/add.php?"+String(data));
+	    	client.println(); 
+	        client.stop();
+		}
+		nAnterior = nPessoas;
 	}
 
 	if (client.connected()) { 
