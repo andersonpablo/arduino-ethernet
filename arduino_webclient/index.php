@@ -1,3 +1,4 @@
+<?php include('conexao.php'); ?>
 <html>
    <head>
       <title>Sensor Data</title>
@@ -5,18 +6,12 @@
    </head>
 <body>
    <h1>Sensor Infravermelho</h1>
-
-      <?php                     
-    
-      include('conexao.php');
-      $stmt = $conn->prepare('SELECT * FROM tempLog ORDER BY timeStamp');
-
-      $stmt->execute(array('tempLog'));
-
-		    while($row = $stmt->fetch()) {
-
-        	echo "Numero de Pessoas: {$row['quant_pessoas']} <br/>";
-    }
-      ?>
+    <?php                     
+      $stmt = $conn->prepare('SELECT * FROM logs ORDER BY timeStamp');
+      $stmt->execute();
+      while($row = $stmt->fetch()) {
+      	echo "Numero de Pessoas: {$row['pessoas']} <br/>";
+      }
+    ?>
 </body>
 </html>

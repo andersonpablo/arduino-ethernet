@@ -24,34 +24,31 @@ void setup() {
 	else
         Serial.println("ok");
   
-  data = "";
+    data = "";
 }
 
 void loop(){
   
-	if (!digitalRead(sensor1))
-	{
+	if (!digitalRead(sensor1)){
     	timeS1 = millis(); 
     }
-    if (!digitalRead(sensor2))
-    {
+    if (!digitalRead(sensor2)){
     	timeS2 = millis(); 
     }
 
     dif = timeS2 - timeS1;
 
-    if (dif >= limiteInf and dif <= limiteSup)
-    {
+    if (dif >= limiteInf and dif <= limiteSup){
     	timeS1 = timeS2 = 0;
     	nPessoas++;
     }
 
 
-	String data = "sensor1=" + String(sensor1) + "&sensor2=" + String(sensor2) + "\nNumero de pessoas: " + String(nPessoas);        
+	String data = "sensor1=" + String(sensor1) + "&sensor2=" + String(sensor2) + "&pessoas=" + String(nPessoas);        
 
 	if (client.connect("192.168.0.101",80)) {
     	Serial.println("-> Conectado");
-		client.print("POST /sensor/add.php?"+String(data));
+		client.print("GET /sensor/add.php?"+String(data));
     	client.println(); 
         client.stop();
 	}
