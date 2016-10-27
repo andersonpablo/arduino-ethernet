@@ -17,20 +17,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `logs`
+-- Database: `tempLog`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `logs`
+-- Table structure for table `tempLog`
 --
 
-CREATE TABLE IF NOT EXISTS `logs` (
+CREATE TABLE IF NOT EXISTS `tempLog` (
   `timeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `sensor1` int(11) NOT NULL,
-  `sensor2` int(11) NOT NULL,
-  `pessoas` int(11) NOT NULL,
+  `quant_pessoas` int(11) NOT NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -40,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
 --
 -- Indexes for table `logs`
 --
-ALTER TABLE `logs`
+ALTER TABLE `tempLog`
   ADD PRIMARY KEY (`timeStamp`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
