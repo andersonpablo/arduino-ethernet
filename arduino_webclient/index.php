@@ -7,10 +7,10 @@
 <body>
    <h1>Sensor Infravermelho</h1>
     <?php                     
-      $stmt = $conn->prepare('SELECT * FROM logs ORDER BY timeStamp');
+      $stmt = $conn->prepare('SELECT * FROM tempLog ORDER BY timeStamp');
       $stmt->execute();
       while($row = $stmt->fetch()) {
-      	echo "Numero de Pessoas: {$row['pessoas']} <br/>";
+      	echo "Numero de Pessoas: {$row['quant_pessoas']} <br/>";
       }
     ?>
 </body>
