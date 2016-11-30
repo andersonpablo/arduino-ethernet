@@ -1,4 +1,5 @@
 #include <UIPEthernet.h>
+#include <EEPROM.h>
 
 uint8_t mac[6] = {0x00,0x01,0x02,0x03,0x04,0x05};
 EthernetClient client;
@@ -6,13 +7,14 @@ EthernetClient client;
 int sensor1 = 8;
 int sensor2 = 9;
 String data;
-
+long int nPessoas = 0;
+long int nAnterior = 0;
 int limiteInf = 500, limiteSup = 1500;
 unsigned long timeS1 = 0, timeS2 = 0;
 unsigned long dif;
-long int nPessoas = 0;
 
-long int nAnterior = 0;
+int id_arduino;
+
 
 void setup() { 
 
@@ -27,10 +29,10 @@ void setup() {
         Serial.println("ok");
   
     data = "";
+    id_arduino = EEPROM.read(0);
 }
 
 void loop(){
-  
 	if (!digitalRead(sensor1)){
     	timeS1 = millis(); 
     }
@@ -42,25 +44,22 @@ void loop(){
 
     if (dif >= limiteInf and dif <= limiteSup){
     	timeS1 = timeS2 = 0;
-    	nAnterior = nPessoas;
-    	nPessoas++;
-    }
-
-
-	String data = "valor=" + String(nPessoas);        
-
-	if (nPessoas % 5 == 0 && nAnterior != nPessoas)
-	{
-		if (client.connect("192.168.0.101",80)) 
+        nPessoas++;
+        String data = "valor=" + String(nPessoas) + "&id_arduino=" + String(id_arduino); 
+        //Serial.println(data);
+        if (client.connect("192.168.1.8",80)) 
 		{
 	    	Serial.println("-> Conectado");
-			client.print("GET /sensor/add.php?"+String(data));
+		client.print("GET /sensor/add.php?"+String(data));
+                Serial.println("GET /sensor/add.php?"+String(data));
 	    	client.println(); 
 	        client.stop();
 		}
-		nAnterior = nPessoas;
-	}
-
+    
+    
+    
+    }
+	
 	if (client.connected()) { 
 		client.stop();
 	}
