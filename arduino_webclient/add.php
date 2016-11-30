@@ -1,9 +1,9 @@
-<?php 
-	if(!isset($_GET['valor'])) die('fail');
-	include('conexao.php');
+<?php include('conexao.php');
 
-	$stmt = $conn->prepare('INSERT INTO tempLog (quant_pessoas) VALUES ( :valor)');
-	$stmt->bindParam(':quant_pessoas', $_GET['valor'], PDO::PARAM_INT);
-	$stmt->execute();
-
-	echo "ok";
+error_reporting(0);
+ini_set(“display_errors”, 0);
+   
+   $query = "INSERT INTO tempLog (quant_pessoas, id_arduino) VALUES ('".$_GET["valor"]."','".$_GET["id_arduino"]."')"; 
+   $exec = $conn->exec($query);
+   
+echo "adicionado com sucesso";
