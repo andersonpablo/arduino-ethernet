@@ -10,7 +10,7 @@
       $stmt = $conn->prepare('SELECT * FROM tempLog ORDER BY timeStamp');
       $stmt->execute();
       while($row = $stmt->fetch()) {
-      	echo "Numero de Pessoas: {$row['quant_pessoas']} <br/>";
+      	echo "Numero de Pessoas: {$row['quant_pessoas']} - id: {$row['id_arduino']}<br/>";
       }
     ?>
 </body>
