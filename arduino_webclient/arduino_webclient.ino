@@ -1,4 +1,4 @@
-#include <UIPEthernet.h>
+ #include <UIPEthernet.h>
 #include <EEPROM.h>
 
 uint8_t mac[6] = {0x00,0x01,0x02,0x03,0x04,0x05};
@@ -44,14 +44,12 @@ void loop(){
 
     if (dif >= limiteInf and dif <= limiteSup){
     	timeS1 = timeS2 = 0;
-        nPessoas++;
-        String data = "valor=" + String(nPessoas) + "&id_arduino=" + String(id_arduino); 
-        //Serial.println(data);
-        if (client.connect("192.168.1.8",80)) 
+        String data = "id_arduino=" + String(id_arduino); 
+        if (client.connect("192.168.1.4",80)) 
 		{
 	    	Serial.println("-> Conectado");
-		client.print("GET /sensor/add.php?"+String(data));
-                Serial.println("GET /sensor/add.php?"+String(data));
+		client.print("GET /sensor/kaa/add.php?"+String(data));
+                Serial.println("GET /sensor/kaa/add.php?"+String(data));
 	    	client.println(); 
 	        client.stop();
 		}
